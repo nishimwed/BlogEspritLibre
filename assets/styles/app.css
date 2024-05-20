@@ -1,3 +1,40 @@
 body {
     background-color: skyblue;
 }
+
+
+/* Styles for centering image */
+
+.header {
+    text-align: center;
+    padding-top: 20px;
+    /* adjust as needed */
+}
+
+.image-container {
+    max-height: 56px;
+    /* adjust as needed */
+    overflow: hidden;
+}
+
+.image-container img {
+    max-height: 10%;
+    width: auto;
+}
+
+
+/* Make the image fully responsive */
+
+.carousel-inner img {
+    width: 100%;
+    height: 26%;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 400px;
+}
+
+.collapse {
+    justify-content: space-between;
+}

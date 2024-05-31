@@ -1,1 +1,11 @@
-{% extends '@EasyAdmin/layout.html.twig' %}
+{# templates/admin/home.html.twig #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content %}
+    <h1>Home Content in Admin</h1>
+
+    {# Render the content of HomeController here #}
+    {{ homeContent|raw }}
+{% endblock %}
+
+

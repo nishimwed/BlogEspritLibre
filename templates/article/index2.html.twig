@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Article{% endblock %}
+
+{% block body %}
+    {# Jumbotron #}
+    <div class="p-5 mb-4 bg-warning">
+        <div class="container-fluid py-5 text-center">
+            <h1 class="display-5 fw-bold">Blog page</h1>
+        </div>
+    </div>
+
+    <div class="col-md-9 mx-auto my-5">
+        <p class="w-75 mx-auto lead my-5">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam beatae cum debitis fuga ipsam modi, quaerat. Consequuntur cumque facere hic minima nam nulla quisquam sunt tempora voluptatibus! Architecto, blanditiis, reprehenderit.<br>
+            <a href="{{ path('app_article_new') }}" class="d-block my-5 btn btn-primary btn-lg col-3">Create new</a>
+        </p>
+        <div class="container-md">
+            {% for article in articles %}
+                <div class="row mb-5">
+                    <div class="col-12 col-md-4">
+                        <img src="https://lemondeselonclaire.com/wp-content/uploads/2022/09/voyager-a-plus-de-50-ans.jpg" alt="{{ article.title }}" class="img-fluid">
+                    </div>
+                    <div class="col-12 col-md-8">
+                        
+                        {% if article.image %}
+                            <img src="{{ asset('uploads/images/' ~ article.image) }}" alt="Article image" />
+                        {% endif %}
+                        <h2><a href="{{ path('app_article_show', {'id' : article.id}) }}">{{ article.title }}</a></h2>
+                        <p>{{ article.content }}</p>
+                        <p>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+                        <a href="{{ path('app_article_show', {'id': article.id}) }}" class="btn btn-primary btn-lg me-2">show</a>
+                        <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-primary btn-lg">edit</a>
+                    </div>
+                </div>
+            {% else %}
+                <p>no records found</p>
+            {% endfor %}
+        </div>
+    </div>
+    {# Articles #}
+{% endblock %}

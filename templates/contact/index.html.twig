@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ContactController!{% endblock %}
+
+{% block body %}
+    {# Jumbotron #}
+    <div class="p-5 mb-4 bg-warning">
+        <div class="container-fluid py-5 text-center">
+            <h1 class="display-5 fw-bold">Contact</h1>
+        </div>
+    </div>
+
+    <div class="col-md-9 mx-auto my-5">
+        <div class="container-md">
+            <p class="p-5">
+                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid at non totam vitae. Adipisci, consectetur dolore error et laboriosam maxime, nobis numquam odio perferendis placeat repellendus sed sint totam voluptate?</span><span>At dolorem doloribus modi nesciunt non. Aliquam consectetur consequuntur cum debitis, dicta distinctio ducimus est, et excepturi fuga iure labore modi molestiae porro quaerat qui sunt temporibus unde. Hic, voluptates.</span><span>Cum doloribus illum molestiae saepe tenetur. Asperiores assumenda consequatur corporis culpa dolor error minus perspiciatis repudiandae. Cumque deserunt distinctio, error harum inventore, libero nobis numquam obcaecati qui quia sed, voluptate.</span><span>Ab, beatae deleniti dicta dignissimos ex id illum ipsam neque officiis, quia repellat reprehenderit, similique ullam ut veniam! Doloribus libero non soluta. Atque beatae eius eos fugiat odio sed temporibus.</span>
+            </p>
+        </div>
+         <div class="container mt-5">
+            <div class="row">
+               <h1 class="">Contactez-Nous</h1><i class="fa-solid fa-address-card fa-flip-horizontal fa-2xl" style="color: #63E6BE;"></i>
+            </div>
+        
+        <!-- Contact options -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">By Email</h5>
+                <p class="card-text">You can send us an email at <a href="mailto:your-email@example.com">your-email@example.com</a>.</p>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">By Phone</h5>
+                <p class="card-text">You can call us at <a href="tel:+33753643034">+33 7 53 64 30 34</a>.</p>
+            </div>
+        </div>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <!-- Contact Form -->
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Contact Form</h5>
+                <form method="post" action="{{ path('contact_form_submit') }}">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nom</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Envoyer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

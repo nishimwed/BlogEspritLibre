@@ -2,10 +2,12 @@
 
 namespace App\Controller\Admin;
 
+use App\Controller\HomeController;
 use App\Entity\Article;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -17,7 +19,10 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
         //return parent::index();
-        return $this->render('admin/index.html.twig');
+        $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
+        return $this->redirect($adminUrlGenerator->setController(ArticleCrudController::class)->generateUrl());
+        
+        // return $this->render('admin/index.html.twig');
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
         //
@@ -35,16 +40,28 @@ class DashboardController extends AbstractDashboardController
         //
         // return $this->render('some/path/my-dashboard.html.twig');
     }
+     
+    #[Route('/admin/home', name: 'admin_home')]
+    public function home(): Response
+    {
+        // Appel au HomeController et récupération du contenu
+        $homeResponse = $this->forward(HomeController::class . '::index');
+        $homeContent = $homeResponse->getContent();
 
+        return $this->render('Home/index.html.twig', [
+            'homeContent' => $homeContent,
+        ]);
+    }
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('BlogEspritLibre');
+            ->setTitle('Blog Esprit Libre');
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('The Label', 'fas fa-list', Article::class);
+        yield MenuItem::linkToDashboard('Home', 'fa fa-home','app_home');
+        yield MenuItem::linkToCrud('Article', 'fas fa-list', Article::class);
+        yield MenuItem::linkToRoute('Home', 'fa fa-home', 'admin_home');
     }
 }

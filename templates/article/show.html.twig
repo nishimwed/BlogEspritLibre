@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article{% endblock %}
+
+{% block body %}
+    <h1>Article</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ article.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ article.title }}</td>
+            </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updated_at</th>
+                <td>{{ article.updatedAt ? article.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary btn-lg" href="{{ path('app_article_index') }}">back to list</a>
+
+    <a class="btn btn-primary btn-lg" href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
+
+   {# {{ include('article/_delete_form.html.twig') }} }
+
+    {# Jumbotron #}
+    <div class="p-5 mb-4 bg-warning">
+        <div class="container-fluid py-5 text-center">
+            <h1 class="display-5 fw-bold">Blog page</h1>
+        </div>
+    </div>
+
+    <div class="col-md-9 mx-auto my-5">
+        <p class="w-75 mx-auto lead my-5">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam beatae cum debitis fuga ipsam modi, quaerat. Consequuntur cumque facere hic minima nam nulla quisquam sunt tempora voluptatibus! Architecto, blanditiis, reprehenderit.<br>
+            <a href="{{ path('app_article_new') }}" class="d-block my-5">Create new</a>
+        </p>
+        <div class="container-md">
+            {% for articl in article %}
+                <div class="row mb-5">
+                    <div class="col-12 col-md-4">
+                        <img src="https://placehold.co/600x400" alt="{{ articl.title }}" class="img-fluid">
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <h2><a href="{{ path('app_article_show', {'id' : articl.id}) }}">{{ articl.title }}</a></h2>
+                        <p>{{ articl.content }}</p>
+                        <p>{{ articl.createdAt ? articl.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+                        <a href="{{ path('app_article_show', {'id': articl.id}) }}">show</a>
+                        <a href="{{ path('app_article_edit', {'id': articl.id}) }}">edit</a>
+                    </div>
+                </div>
+            {% else %}
+                <p>no records found</p>
+            {% endfor %}
+        </div>
+    </div>
+    {# Articles #}
+{% endblock %}
